@@ -34,7 +34,7 @@ export default function Home() {
         <div>
             
               <h1>Test</h1>
-                  {message && <p>{message}</p>}
+                  {message ? <p>{message}</p> : <p>なんもないです</p>}
       {error && (
         <p>
           <code>{error}</code>
