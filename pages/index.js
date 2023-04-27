@@ -8,19 +8,22 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
   const [message, setMessage] = useState('テスト')
   const [error, setError] = useState('')
-  
+ 
   useEffect(() => {
-     import("@line/liff").then((liff) => {
+    import('@line/liff').then((liff) => {
       liff
-        .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID })
+        .init({
+          liffId: process.env.NEXT_PUBLIC_LIFF_ID,
+        })
         .then(() => {
-          setMessage('success')
+          setMessage('LIFF 初期化成功');
         })
         .catch((err) => {
-          console.warn({ err });
+          setMessage('LIFF 初期化エラー');
+          setError(err);
         });
     });
-  })
+  }, []);
 
   return (
     <>
@@ -31,16 +34,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div>
-            
-              <h1>Test</h1>
-                  {message ? <p>{message}</p> : <p>なんもないです</p>}
-      {error && (
-        <p>
-          <code>{error}</code>
-        </p>
-      )}
-        </div>
+      <h1>{message}</h1>
+      {error && <pre>{JSON.stringify(error, null, 2)}</pre>}
       </main>
     </>
   )
