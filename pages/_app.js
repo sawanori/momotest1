@@ -4,15 +4,16 @@ import React,  {useEffect, useState} from 'react'
 export default function App({ Component, pageProps }) {
   const [message, setMessage] = useState('テスト')
   const [error, setError] = useState('')
- 
+
+
   useEffect(() => {
-    if (!pageProps.liffId) return;
     import('@line/liff').then((liff) => {
-      liff
-        .init({
+      liff.initPlugins(['']).then(() => {
+        const initLiff = liff.getInitPlugins();
+        initLiff.init({
           liffId: process.env.NEXT_PUBLIC_LIFF_ID,
-        })
-        .then(() => {
+        });
+      }).then(() => {
           setMessage('LIFF 初期化成功');
         })
         .catch((err) => {
@@ -21,7 +22,7 @@ export default function App({ Component, pageProps }) {
         });
     });
   }, []);
-   console.log(message)
+    console.log(message)
 
   return <Component {...pageProps} />
 }
