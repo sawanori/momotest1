@@ -7,22 +7,20 @@ export default function App({ Component, pageProps }) {
 
 
   useEffect(() => {
-    import('@line/liff').then((liff) => {
-      liff.initPlugins(['']).then(() => {
-        const initLiff = liff.getInitPlugins();
-        initLiff.init({
-          liffId: process.env.NEXT_PUBLIC_LIFF_ID,
-        });
-      }).then(() => {
-          setMessage('LIFF 初期化成功');
-        })
-        .catch((err) => {
-          setMessage('LIFF 初期化エラー');
-          setError(err);
-        });
-    });
+    const initLiff = async () => {
+      try {
+        const { default: liff } = await import('@line/liff');
+        await liff.load({ liffId: process.env.NEXT_PUBLIC_LIFF_ID });
+        setMessage('LIFF 初期化成功');
+      } catch (err) {
+        setMessage('LIFF 初期化エラー');
+        setError(err);
+      }
+    };
+
+    initLiff();
   }, []);
-    console.log(message)
+
 
   return <Component {...pageProps} />
 }
