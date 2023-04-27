@@ -1,4 +1,3 @@
-import React,  {useEffect, useState} from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 
@@ -6,25 +5,6 @@ import styles from '../styles/Home.module.css'
 
 
 export default function Home() {
-  const [message, setMessage] = useState('テスト')
-  const [error, setError] = useState('')
- 
-  useEffect(() => {
-    import('@line/liff').then((liff) => {
-      liff
-        .init({
-          liffId: process.env.NEXT_PUBLIC_LIFF_ID,
-        })
-        .then(() => {
-          setMessage('LIFF 初期化成功');
-        })
-        .catch((err) => {
-          setMessage('LIFF 初期化エラー');
-          setError(err);
-        });
-    });
-  }, []);
-   console.log(message)
   return (
     <>
       <Head>
@@ -34,8 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-      <h1>{message}</h1>
-      {error && <pre>{JSON.stringify(error, null, 2)}</pre>}
+      <h1>TEST</h1>
       </main>
     </>
   )
