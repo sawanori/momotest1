@@ -34,7 +34,12 @@ export default function Home() {
         <div>
             
               <h1>Test</h1>
-            
+                  {message && <p>{message}</p>}
+      {error && (
+        <p>
+          <code>{error}</code>
+        </p>
+      )}
         </div>
       </main>
     </>
