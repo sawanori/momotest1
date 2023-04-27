@@ -6,6 +6,7 @@ export default function App({ Component, pageProps }) {
   const [error, setError] = useState('')
  
   useEffect(() => {
+    if (!pageProps.liffId) return;
     import('@line/liff').then((liff) => {
       liff
         .init({
