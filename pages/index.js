@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.css'
 
 
 export default function Home() {
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState('テスト')
   const [error, setError] = useState('')
   
   useEffect(() => {
